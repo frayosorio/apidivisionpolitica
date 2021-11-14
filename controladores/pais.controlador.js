@@ -7,8 +7,10 @@ exports.listar = (req, res) => {
         if (err) {
             res.status(500).send({ mensaje: 'Error obteniendo la lista de paises' });
         }
-        //devolver los registros obtenidos
-        res.send(datos);
+        else {
+            //devolver los registros obtenidos
+            res.send(datos);
+        }
     }
     );
 }
@@ -26,10 +28,11 @@ exports.agregar = (req, res) => {
             if (err) {
                 res.status(500).send({ mensaje: 'Error agregando el país' });
             }
-            res.send(datos);
+            else {
+                res.send(datos);
+            }
         }
     );
-
 }
 
 //metodo web para modificar un país
@@ -45,21 +48,24 @@ exports.modificar = (req, res) => {
             if (err) {
                 res.status(500).send({ mensaje: 'Error modificando el país' });
             }
-            res.send(datos);
+            else {
+                res.send(datos);
+            }
         }
     );
-
 }
 
 //metodo web para eliminar un país
 exports.eliminar = (req, res) => {
-    Pais.eliminar(req.params.id,
+    pais.eliminar(req.params.id,
         (err, datos) => {
             //verificar si hubo error
             if (err) {
                 res.status(500).send({ mensaje: 'Error eliminando el país' });
             }
-            res.send({ mensaje: `Se eliminó el país con id=${req.params.id}` });
+            else {
+                res.send({ mensaje: `Se eliminó el país con id=${req.params.id}` });
+            }
         }
     );
 }

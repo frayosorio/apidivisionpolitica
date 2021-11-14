@@ -92,10 +92,16 @@ Pais.modificar = (pais, resultado) => {
                     resultado(err, null);
                     console.log("Error modificando país", err);
                 }
-                else {
-                    console.log("Se modificó con éxito el país: ", pais);
-                    resultado(null, pais);
+                //La consulta no afectó registros
+                if (res.modifiedCount == 0) {
+                    //No se encontraron registros
+                    resultado({ mensaje: "No encontrado" }, null);
+                    console.log("No se encontró el país ", pais);
+                    return;
                 }
+                console.log("Se modificó con éxito el país: ", pais);
+                resultado(null, pais);
+
             }
         );
 }
@@ -116,11 +122,19 @@ Pais.eliminar = (idPais, resultado) => {
                 if (err) {
                     resultado(err, null);
                     console.log("Error eliminando país", err);
+                    return;
                 }
-                else {
-                    console.log("Se eliminó con éxito el país con id=", idPais);
-                    resultado(null, res);
+
+                //La consulta no afectó registros
+                if (res.deletedCount == 0) {
+                    //No se encontraron registros
+                    resultado({ mensaje: "No encontrado" }, null);
+                    console.log("No se encontró el país con id=", idPais);
+                    return;
                 }
+                console.log("Se eliminó con éxito el país con id=", idPais);
+                resultado(null, res);
+
             }
         );
 
